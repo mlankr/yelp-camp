@@ -1,5 +1,9 @@
 # YelpCamp Project
 
+[![Deploy JAR to Azure Web App](https://github.com/mlankr/yelp-camp/actions/workflows/azure.yml/badge.svg)](https://github.com/mlankr/yelp-camp/actions/workflows/azure.yml)
+
+---
+
 Welcome to **YelpCamp**, my full-stack portfolio project that lets users create and review campgrounds. To participate in reviewing or adding campgrounds, an account is required.
 
 ---
