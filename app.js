@@ -55,7 +55,7 @@ const scriptSrcUrls = [
     "https://cdn.jsdelivr.net/",
     "https://code.jquery.com/",
     "https://cdnjs.cloudflare.com/",
-    "https://res.cloudinary.com/ally12345/"
+    "https://res.cloudinary.com/cloudwiz/"
 ];
 const styleSrcUrls = [
     "https://cdn.jsdelivr.net/",
@@ -63,16 +63,16 @@ const styleSrcUrls = [
     "https://api.tiles.mapbox.com/",
     "https://fonts.googleapis.com/",
     "https://ka-f.fontawesome.com/",
-    "https://res.cloudinary.com/ally12345/"
+    "https://res.cloudinary.com/cloudwiz/"
 ];
 const connectSrcUrls = [
     "https://*.tiles.mapbox.com/",
     "https://api.mapbox.com/",
     "https://events.mapbox.com",
     "https://ka-f.fontawesome.com/",
-    "https://res.cloudinary.com/ally12345/"
+    "https://res.cloudinary.com/cloudwiz/"
 ];
-const fontSrcUrls = ["https://res.cloudinary.com/ally12345/", "https://ka-f.fontawesome.com/"];
+const fontSrcUrls = ["https://res.cloudinary.com/cloudwiz/", "https://ka-f.fontawesome.com/"];
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -87,11 +87,11 @@ app.use(
                 "'self'",
                 "blob:",
                 "data:",
-                "https://res.cloudinary.com/ally12345/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
+                "https://res.cloudinary.com/cloudwiz/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
                 "https://images.unsplash.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
-            mediaSrc: ["https://res.cloudinary.com/ally12345/"]
+            mediaSrc: ["https://res.cloudinary.com/cloudwiz/"]
         },
     })
 );
