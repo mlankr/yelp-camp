@@ -1,0 +1,19 @@
+<% for(let i = 0; i < campgrounds.length; i++) { %>
+    <div class="row mb-3 g-0">
+        <div class="col-12 col-md-4 col-xl-3 campground-image"
+             style="background-image: url('<%= campgrounds[i].images.length ? campgrounds[i].images[0].url : 'https://res.cloudinary.com/ally12345/image/upload/v1646651173/YelpCamp/tvcflggxvisflvxkw62g.jpg' %> ')">
+
+        </div>
+        <div class="col-12 col-md-8 col-xl-9">
+            <div class="card-body">
+                <h5 class="card-title"><%= campgrounds[i].title %></h5>
+                <p class="card-text"><%= campgrounds[i].description %></p>
+                <p class="card-text">
+                    <small class="text-muted"><%= campgrounds[i].location %></small>
+                </p>
+                <a class="btn btn-primary"
+                   href="/campgrounds/<%= campgrounds[i]._id %>">View <%= campgrounds[i].title %></a>
+            </div>
+        </div>
+    </div>
+<% } %>

@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">New Campground</h1>
+    <div class="col-md-6 offset-md-3">
+        <form class="validated-form" action="/campgrounds" method="post" novalidate
+              enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input id="title" type="text" name="campground[title]" class="form-control" required>
+                <div class="invalid-feedback">
+                    Title is required
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Campground Price</label>
+                <div class="input-group ">
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input id="price" type="text" name="campground[price]" class="form-control"
+                           aria-describedby="price-label" placeholder="0.00" required>
+                    <div class="invalid-feedback">
+                        Price is required
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" type="text" name="campground[description]" class="form-control"
+                          rows="3"
+                          required></textarea>
+                <div class="invalid-feedback">
+                    Description is required
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location
+                    <i class="fa fa-info-circle text-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="Please use valid location, so that it can be pinned in the map. E.g. Grand Canyon National Park, Arizona"></i>
+                </label>
+                <input id="location" type="text" name="campground[location]" class="form-control" required>
+                <div class="invalid-feedback">
+                    Location is required
+                </div>
+            </div>
+            <div class="custom-file">
+                <input class="form-control" type="file" id="formFileMultiple" name="image" multiple required>
+                <label for="formFileMultiple" class="form-label custom-file-label"></label>
+            </div>
+            <div class="d-grid mb-3">
+                <button class="btn btn-success mx-md-5">Add Campground</button>
+            </div>
+        </form>
+        <div class="d-grid">
+            <a class="btn btn-secondary text-decoration-none mx-md-5" href="/campgrounds">All Campgrounds</a>
+        </div>
+    </div>
+</div>
