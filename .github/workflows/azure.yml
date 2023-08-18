@@ -28,8 +28,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install Packages
-        run: |
-          npm install
+        run:  npm install
 
       - name: Zip artifact for Deployment
         run: zip release.zip ./* -r
