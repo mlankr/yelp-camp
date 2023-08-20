@@ -12,14 +12,14 @@
                     <form action="/register" method="post" class="validated-form" novalidate>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input id="username" type="text" name="username" class="form-control" autofocus required>
+                            <input id="username" type="text" name="username" class="form-control" value="<%= username %>" autofocus required>
                             <div class="invalid-feedback">
                                 Username is required
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input id="email" type="email" name="email" class="form-control" required>
+                            <input id="email" type="email" name="email" class="form-control" value="<%= email %>" required>
                             <div class="invalid-feedback">
                                 Email is required
                             </div>

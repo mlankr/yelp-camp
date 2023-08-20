@@ -26,7 +26,7 @@ const reviewRoutes = require('./routes/reviews')
 const userRoutes = require('./routes/users')
 
 // database
-const dbUrl = process.env.NODE_ENV.toLowerCase() === 'production' ? (process.env.DATABASE_URL || 'mongodb://localhost:27017/yelp-camp') : 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.ENVIRONMENT.toLowerCase() === 'production' ? (process.env.DATABASE_URL || 'mongodb://localhost:27017/yelp-camp') : 'mongodb://localhost:27017/yelp-camp';
 mongoose.connect(dbUrl)
 	.then(() => {
 		console.log('Database Connected!!!')

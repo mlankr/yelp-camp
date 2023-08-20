@@ -14,23 +14,24 @@ module.exports.index = async (req, res) => {
 }
 
 module.exports.showUserCampgrounds = async (req, res) => {
-	try {
-		const userId = req.user._id; // Assuming you're using Passport.js or similar for authentication
-		const userCampgrounds = await Campground.find({author: userId}); // Assuming you have a Campground model
-		res.render('campgrounds/showMine', {campgrounds: userCampgrounds, pageName: 'My Campgrounds'});
-	} catch (error) {
-		console.error(error);
-	}
+	const userId = req.user._id; // Assuming you're using Passport.js or similar for authentication
+	const userCampgrounds = await Campground.find({author: userId}); // Assuming you have a Campground model
+	res.render('campgrounds/showMine', {campgrounds: userCampgrounds, pageName: 'My Campgrounds'});
 };
 
 module.exports.renderNewForm = async (req, res) => {
-	res.render('campgrounds/new', {pageName: 'New Campground'})
+	const title = req.flash('title') || '';
+	const price = req.flash('price') || '';
+	const description = req.flash('description') || '';
+	const locationText = req.flash('locationText') || '';
+	const imagePaths = req.flash('imagePaths') || '';
+	res.render('campgrounds/new', {title, price, description, locationText, imagePaths, pageName: 'New Campground'})
 }
 
 module.exports.showCampground = async (req, res) => {
+	const reviewText = req.flash('reviewText') || '';
 	const campground = await Campground.findById(req.params.id).populate({
-		path: 'reviews',
-		populate: {path: 'author'}
+		path: 'reviews', populate: {path: 'author'}
 	}).populate('author');
 	if (!campground) {
 		req.flash('error', 'Campground Not Found!');
@@ -38,6 +39,7 @@ module.exports.showCampground = async (req, res) => {
 	}
 	res.render('campgrounds/show', {
 		campground,
+		reviewText,
 		pageName: 'Show Campground',
 		numberOfDays: Math.round(Math.abs(((new Date()).getTime() - (campground.createdDate).getTime()) / (24 * 60 * 60 * 1000)))
 	});
@@ -56,8 +58,7 @@ module.exports.loadNextCampgrounds = async (req, res) => {
 	const {limit, offset} = req.body;
 	const campgrounds = await Campground.find().limit(limit).skip(offset);
 	const compiled = ejs.compile(fs.readFileSync(__dirname + '/../views/partials/campgroundItems.ejs', {
-		encoding: 'utf8',
-		flag: 'r'
+		encoding: 'utf8', flag: 'r'
 	}));
 	const html = compiled({campgrounds});
 	res.send(html);
@@ -66,8 +67,7 @@ module.exports.loadNextCampgrounds = async (req, res) => {
 module.exports.createCampground = async (req, res) => {
 	try {
 		const geoData = await geocoder.forwardGeocode({
-			query: req.body.campground.location,
-			limit: 1
+			query: req.body.campground.location, limit: 1
 		}).send();
 		if (geoData.body.features && geoData.body.features.length > 0) {
 			const campground = new Campground(req.body.campground);
@@ -81,8 +81,12 @@ module.exports.createCampground = async (req, res) => {
 			req.flash('error', 'Invalid location data. Please provide a valid location')
 			throw new Error('Invalid Location');
 		}
-	} catch
-		(err) {
+	} catch (err) {
+		req.flash('title', req.body.campground.title);
+		req.flash('price', req.body.campground.price);
+		req.flash('description', req.body.campground.description);
+		req.flash('locationText', req.body.campground.location);
+		req.flash('imagePaths', req.body.campground.image);
 		res.redirect('/campgrounds/new');
 	}
 }
@@ -90,8 +94,7 @@ module.exports.createCampground = async (req, res) => {
 module.exports.updateCampground = async (req, res) => {
 	try {
 		const campground = await Campground.findByIdAndUpdate(req.params.id, {...req.body.campground}, {
-			new: true,
-			runValidators: true
+			new: true, runValidators: true
 		});
 		const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
 		campground.images.push(...imgs);
