@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="row mx-auto justify-content-center align-items-center centeredContent userCampgrounds">
+<div class="row mx-auto justify-content-center align-items-center userCampgrounds">
     <div class="campgroundsWrapper py-3">
         <% if (campgrounds.length === 0) { %>
             <div class="alert alert-primary text-center" role="alert">
@@ -8,9 +8,9 @@
             </div>
         <% }
         else { %>
-            <div class="container d-flex justify-content-evenly">
+            <div class="d-flex justify-content-evenly flex-wrap gap-5">
                 <% campgrounds.forEach(campground => { %>
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 225px;">
                         <% if(campground.images.length > 0) { %>
                             <img src="<%= campground.images[0].thumbnail %>" class="card-img-top img-thumbnail" alt="Campground Image">
                         <% } %>
@@ -23,6 +23,6 @@
                 <% }); %>
             </div>
         <% } %>
+        <a class="d-block mt-5 col-10 col-sm-6 col-md-3 btn btn-primary mx-auto" href="/campgrounds/new">Create Campground</a>
     </div>
-    <a class="mt-5 col-10 col-sm-6 col-md-3 btn btn-primary" href="/campgrounds/new">Create Campground</a>
 </div>

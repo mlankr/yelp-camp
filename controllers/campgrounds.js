@@ -23,9 +23,9 @@ module.exports.renderNewForm = async (req, res) => {
 	const title = req.flash('title') || '';
 	const price = req.flash('price') || '';
 	const description = req.flash('description') || '';
-	const locationText = req.flash('locationText') || '';
+	const location = req.flash('location') || '';
 	const imagePaths = req.flash('imagePaths') || '';
-	res.render('campgrounds/new', {title, price, description, locationText, imagePaths, pageName: 'New Campground'})
+	res.render('campgrounds/new', {title, price, description, location, imagePaths, pageName: 'New Campground'})
 }
 
 module.exports.showCampground = async (req, res) => {
@@ -78,15 +78,14 @@ module.exports.createCampground = async (req, res) => {
 			req.flash('success', 'Successfully made a new campground!');
 			res.redirect(`/campgrounds/${campground._id}`);
 		} else {
-			req.flash('error', 'Invalid location data. Please provide a valid location')
+			req.flash('error', `'${req.body.campground.location}' is invalid location data. Please provide a valid one!`)
 			throw new Error('Invalid Location');
 		}
 	} catch (err) {
 		req.flash('title', req.body.campground.title);
 		req.flash('price', req.body.campground.price);
 		req.flash('description', req.body.campground.description);
-		req.flash('locationText', req.body.campground.location);
-		req.flash('imagePaths', req.body.campground.image);
+		req.flash('location', req.body.campground.location);
 		res.redirect('/campgrounds/new');
 	}
 }

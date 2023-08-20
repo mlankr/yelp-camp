@@ -1,4 +1,7 @@
 const express = require("express");
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const Campground = require("./models/campground");
 const Review = require("./models/review");
 const {campgroundSchema, reviewSchema, userSchema} = require("./schema");
@@ -41,7 +44,6 @@ module.exports.validateCampground = (req, res, next) => {
 		error.details.forEach(currentError => {
 			req.flash('error', currentError.message)
 		})
-
 		if (req.method === 'POST' || req.method === 'DELETE') {
 			return res.redirect('/campgrounds/new');
 		} else {
@@ -66,12 +68,32 @@ module.exports.validateReview = (req, res, next) => {
 module.exports.validateRegistrationInfo = (req, res, next) => {
 	const {error} = userSchema.validate(req.body);
 	if (error) {
-        req.flash('username', req.body.username);
-        req.flash('email',  req.body.email);
+		req.flash('username', req.body.username);
+		req.flash('email', req.body.email);
 		error.details.forEach(currentError => {
 			req.flash('error', currentError.message);
 		})
 		return res.redirect('/register');
+	}
+	next();
+}
+
+module.exports.validateCampgroundLocation = async (req, res, next) => {
+	try {
+		const geoData = await geocoder.forwardGeocode({
+			query: req.body.campground.location, limit: 1
+		}).send();
+		if (geoData.body.features && geoData.body.features.length > 0) {
+		} else {
+			req.flash('error', `'${req.body.campground.location}' is invalid location data. Please provide a valid one!`)
+			throw new Error('Invalid Location');
+		}
+	} catch (err) {
+		if (req.method === 'POST' || req.method === 'DELETE') {
+			return res.redirect('/campgrounds/new');
+		} else {
+			return res.redirect('/campgrounds/' + req.params.id + '/edit');
+		}
 	}
 	next();
 }

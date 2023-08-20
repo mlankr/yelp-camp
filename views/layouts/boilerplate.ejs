@@ -6,9 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= pageName %></title>
-    <link rel="stylesheet" href="/css/app.css">
     <link href="/libs/css/bootstrap.min.css" rel="stylesheet">
     <link href='/libs/css/mapbox.min.css' rel='stylesheet'/>
+    <link href="/css/app.css" rel="stylesheet">
     <script src='/libs/js/mapbox.min.js'></script>
     <script src="/libs/js/jquery.min.js"></script>
 
@@ -16,7 +16,7 @@
 
 <body class="boxedContent d-flex flex-column vh-100 <%= typeof className == 'undefined' ? '' : className %>">
 <%- include('../partials/navbar') %>
-<main class="container py-4 py-md-5 mainContent">
+<main class="container mainContent">
     <%- include('../partials/flash') %>
     <%- body %>
 </main>

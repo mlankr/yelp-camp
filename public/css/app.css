@@ -1,8 +1,19 @@
+*:focus, .navbar-toggler:focus, button:focus, .btn:focus {
+	text-decoration: none;
+	outline: none;
+	box-shadow: none;
+	user-select: none;
+}
+
 .boxedContent {
 	max-width: 120rem; /* 192px */
 	width: 100%;
 	margin: 0 auto;
 	position: relative
+}
+
+.mainContent {
+	padding: 3.5rem 0;
 }
 
 #cluster-map {
@@ -47,4 +58,8 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.userCampgrounds {
+	min-height: calc(100vh - 56px - 56px - 7rem);
 }
