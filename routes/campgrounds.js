@@ -9,15 +9,16 @@ const multer = require('multer');
 const {storage} = require('../cloudinary');
 const upload = multer({storage});
 
+router.get('/mycampgrounds', isLoggedIn, catchAsync(campgrounds.showUserCampgrounds));
+router.get('/new', isLoggedIn, catchAsync(campgrounds.renderNewForm));
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));
+
 router.route('/')
-    .get(catchAsync(campgrounds.index))
+	.get(catchAsync(campgrounds.index))
     .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground));
 
 router.route('/paginate')
     .post(catchAsync(campgrounds.loadNextCampgrounds));
-
-router.get('/new', isLoggedIn, catchAsync(campgrounds.renderNewForm));
-router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));
 
 router.route('/:id')
     .get(catchAsync(campgrounds.showCampground))

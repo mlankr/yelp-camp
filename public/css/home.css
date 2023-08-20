@@ -1,75 +1,75 @@
 body {
-    height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://images.unsplash.com/photo-1455763916899-e8b50eca9967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
-    background-size: cover;
-    background-position: center;
-    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
-    box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+	url("https://images.unsplash.com/photo-1455763916899-e8b50eca9967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+	background-size: cover;
+	background-position: center;
+	text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
 }
 
 .cover-container {
-    max-width: 60vw;
+	max-width: 60vw;
 }
 
 div > h3 {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .nav-link {
-    padding: 0.25rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.5);
-    margin-left: 1rem;
-    border-bottom: 0.25rem solid transparent;
+	padding: 0.25rem;
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.5);
+	margin-left: 1rem;
+	border-bottom: 0.25rem solid transparent;
 }
 
 .nav-link:hover {
-    color: rgba(255, 255, 255, 0.5);
-    border-bottom-color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.5);
+	border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
 .nav-link.active {
-    color: white;
-    border-bottom-color: white;
+	color: white;
+	border-bottom-color: white;
 }
 
 .view-campgrounds-btn, .view-campgrounds-btn:hover {
-    color: #333;
-    text-shadow: none;
+	color: #333;
+	text-shadow: none;
 }
 
 .view-campgrounds-btn {
-    position: relative;
-    background-color: white;
-    transition: all 0.2s linear;
+	position: relative;
+	background-color: white;
+	transition: all 0.2s linear;
 }
 
 .view-campgrounds-btn:after {
-    content: '»';
-    position: absolute;
-    opacity: 0;
-    transition: all 0.5s linear;
+	content: '»';
+	position: absolute;
+	opacity: 0;
+	transition: all 0.5s linear;
 }
 
 .view-campgrounds-btn:hover {
-    padding-right: 24px;
-    padding-left: 8px;
-    background: #4FD1C5;
-    background: linear-gradient(90deg, rgba(129, 230, 217, 1) 0%, rgba(79, 209, 197, 1) 100%);
+	padding-right: 24px;
+	padding-left: 8px;
+	background: #4FD1C5;
+	background: linear-gradient(90deg, rgba(129, 230, 217, 1) 0%, rgba(79, 209, 197, 1) 100%);
 }
 
 .view-campgrounds-btn:hover:after {
-    opacity: 1;
-    right: 10px;
+	opacity: 1;
+	right: 10px;
 }
 
 @media screen and (max-width: 767px) {
-    .cover-container {
-        max-width: 90vw;
-    }
+	.cover-container {
+		max-width: 90vw;
+	}
 
-    div > h3 {
-        margin-bottom: 10px;
-    }
+	div > h3 {
+		margin-bottom: 10px;
+	}
 }

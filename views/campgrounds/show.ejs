@@ -1,8 +1,7 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/css/stars.css">
 
-<div class="row">
-    <div class="row">
+    <div class="row pt-5">
         <div class="col-md-6">
             <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -80,7 +79,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="body">Review Text</label>
                                 <textarea id="body" class="form-control" name="review[body]" cols="30"
-                                          rows="3" placeholder="write something..." required></textarea>
+                                          rows="3" placeholder="write a review..." required></textarea>
                                 <div class="invalid-feedback">
                                     <p>Review is required</p>
                                 </div>
@@ -109,7 +108,6 @@
             </div>
         </div>
     </div>
-</div>
 <script>
     const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
     const campgroundData = <%- JSON.stringify(campground) %>;

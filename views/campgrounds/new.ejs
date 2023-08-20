@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="row">
+<div class=" centeredContent">
     <h1 class="text-center">New Campground</h1>
     <div class="col-md-6 offset-md-3">
         <form class="validated-form" action="/campgrounds" method="post" novalidate
@@ -43,15 +43,15 @@
                 </div>
             </div>
             <div class="custom-file">
-                <input class="form-control" type="file" id="formFileMultiple" name="image" multiple required>
+                <input class="form-control" type="file" id="formFileMultiple" name="image" multiple>
                 <label for="formFileMultiple" class="form-label custom-file-label"></label>
             </div>
-            <div class="d-grid mb-3">
-                <button class="btn btn-success mx-md-5">Add Campground</button>
+            <div class="d-grid mt-3">
+                <button class="col-10 col-sm-8 btn btn-success mx-auto">Add Campground</button>
             </div>
         </form>
-        <div class="d-grid">
-            <a class="btn btn-secondary text-decoration-none mx-md-5" href="/campgrounds">All Campgrounds</a>
+        <div class="d-grid mt-5 mx-auto">
+            <button class="col-10 col-sm-8 btn btn-secondary mx-auto" href="/campgrounds">All Campgrounds</button>
         </div>
     </div>
 </div>
