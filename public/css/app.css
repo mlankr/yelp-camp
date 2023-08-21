@@ -13,7 +13,7 @@
 }
 
 .mainContent {
-	padding: 3.5rem 0;
+	padding: 3.5rem 1rem;
 }
 
 #cluster-map {
@@ -60,6 +60,6 @@
 	transform: translate(-50%, -50%);
 }
 
-.userCampgrounds {
-	min-height: calc(100vh - 56px - 56px - 7rem);
-}
+/*.userCampgrounds {*/
+/*	min-height: calc(100vh - 56px - 56px - 7rem);*/
+/*}*/
