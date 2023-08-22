@@ -23,7 +23,7 @@
 
 #map {
 	width: 100%;
-	height: 300px;
+	min-height: 300px;
 }
 
 .campground-image {
@@ -60,6 +60,6 @@
 	transform: translate(-50%, -50%);
 }
 
-/*.userCampgrounds {*/
-/*	min-height: calc(100vh - 56px - 56px - 7rem);*/
-/*}*/
+.viewportContent {
+	min-height: calc(100vh - 56px - 56px - 7rem);
+}
