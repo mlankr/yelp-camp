@@ -28,7 +28,7 @@
 }
 
 .mainContent {
-	padding: 3.5rem 1rem;
+	padding: 6.5rem 1rem 3.5rem ;
 }
 
 #cluster-map {
@@ -76,5 +76,5 @@
 }
 
 .viewportContent {
-	min-height: calc(100vh - 56px - 56px - 7rem);
+	min-height: calc(100vh - 56px - 56px - 10rem);
 }

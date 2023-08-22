@@ -36,6 +36,8 @@ module.exports = [
 			main: path.resolve(__dirname, './public/src/js/index.js'),
 			clusterMap: path.resolve(__dirname, './public/src/js/clusterMap.js'),
 			pageMap: path.resolve(__dirname, './public/src/js/showPageMap.js'),
+			modal: path.resolve(__dirname, './public/src/js/modal.js'),
+			campgrounds: path.resolve(__dirname, './public/src/js/loadCampgrounds.js'),
 		},
 		output: {
 			path: path.resolve(__dirname, 'public/dist'),
