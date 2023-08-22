@@ -31,11 +31,7 @@ jobs:
         run:  npm install
 
       - name: Build and minify project
-        run: |
-          npm run build
-          npm run copy-libs
-          npm run minify-css
-          npm run minify-js
+        run: npm run build
 
       - name: Zip artifact for Deployment
         run: zip release.zip ./* -r

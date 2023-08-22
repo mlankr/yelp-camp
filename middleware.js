@@ -66,7 +66,7 @@ module.exports.validateCampgroundDeletion = async (req, res, next) => {
 	const totalCurrentImages = campground.images;
 
 	if (totalCurrentImages.length > 0 && imagesToDelete.length > 0 && totalCurrentImages.length === imagesToDelete.length) {
-		req.flash('error', 'Unsuccessful deletion! Please ensure that at least one image remains undeleted.');
+		req.flash('error', 'Multiple images not deleted! Please ensure that at least one image remains undeleted.');
 		return res.redirect('/campgrounds/' + req.params.id + '/edit');
 	}
 	next();
