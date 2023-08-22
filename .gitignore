@@ -17,7 +17,3 @@ node_modules/
 
 # Ignore logs
 *.log
-
-# Ignore compiled files
-*.min.js
-*.min.css
