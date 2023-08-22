@@ -30,6 +30,15 @@ jobs:
       - name: Install Packages
         run:  npm install
 
+      - name: List directory contents
+        run: |
+          echo "### Contents root ###"
+          ls -la
+          echo "--- Contents of public/ ---"
+          ls -la public/
+          echo "+++ Contents of public/src +++"
+          ls -la public/src
+
       - name: Build and minify project
         run: npm run build
 
