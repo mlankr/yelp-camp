@@ -16,15 +16,6 @@ const passport = require('passport');
 const helmet = require('helmet');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-
-const app = express();
-
-// routes
-const homeRoutes = require('./routes/home')
-const campgroundRoutes = require('./routes/campgrounds')
-const reviewRoutes = require('./routes/reviews')
-const userRoutes = require('./routes/users')
-
 // database
 const dbUrl = process.env.ENVIRONMENT.toLowerCase() === 'production' ? (process.env.DATABASE_URL || 'mongodb://localhost:27017/yelp-camp') : 'mongodb://localhost:27017/yelp-camp';
 mongoose.connect(dbUrl)
@@ -34,6 +25,8 @@ mongoose.connect(dbUrl)
 	.catch(err => {
 		console.log('Error: ', err)
 	});
+
+const app = express();
 
 // views and view Engine
 app.engine('ejs', ejsMate); // use ejs-locals for all ejs templates
@@ -45,6 +38,12 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
+
+// routes
+const homeRoutes = require('./routes/home')
+const campgroundRoutes = require('./routes/campgrounds')
+const reviewRoutes = require('./routes/reviews')
+const userRoutes = require('./routes/users')
 
 const scriptSrcUrls = ["https://api.tiles.mapbox.com/", "https://api.mapbox.com/", "https://kit.fontawesome.com/", "https://cdnjs.cloudflare.com/", "https://cdn.jsdelivr.net/", "https://code.jquery.com/", "https://cdnjs.cloudflare.com/", "https://res.cloudinary.com/cloudwiz/"];
 const styleSrcUrls = ["https://cdn.jsdelivr.net/", "https://api.mapbox.com/", "https://api.tiles.mapbox.com/", "https://fonts.googleapis.com/", "https://ka-f.fontawesome.com/", "https://res.cloudinary.com/cloudwiz/"];

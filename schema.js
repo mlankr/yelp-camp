@@ -28,7 +28,6 @@ const stringExtension = (joi) => {
 
 const Joi = BaseJoi.extend(stringExtension);
 
-
 module.exports.campgroundSchema = Joi.object({
 	campground: Joi.object({
 		title: Joi.string().required().escapeHTML(),

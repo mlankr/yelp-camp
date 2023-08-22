@@ -5,6 +5,7 @@ const Campground = require('../models/campground');
 const Review = require('../models/review');
 const User = require('../models/user');
 const {func} = require("joi");
+const bcrypt = require('bcrypt');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp')
 	.then(() => {
@@ -102,7 +103,9 @@ const seedAuthorsAndIds = async () => {
 		const username = usernames[i];
 		const email = emails[i];
 		const password = username + randomNum(9999);
-		const user = new User({username, email, password})
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(password, salt);
+		const user = new User({username, email, salt, hash: hashedPassword})
 		await user.save();
 	}
 	const users = await User.find();

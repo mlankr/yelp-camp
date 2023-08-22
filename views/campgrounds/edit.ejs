@@ -42,19 +42,24 @@
                 </div>
             </div>
             <div class="custom-file">
-                <input class="form-control" type="file" id="formFileMultiple" name="image" multiple>
+                <input class="form-control" type="file" id="formFileMultiple" name="image" multiple <%= campground.images.length < 1 ? 'required' : '' %>>
+                <div class="form-text mt-2 ms-2">
+                    <i>At least one image is necessary to showcase the campground.</i>
+                </div>
                 <label for="formFileMultiple" class="form-label custom-file-label"></label>
             </div>
             <div class="mb-3 d-flex justify-content-evenly">
                 <% campground.images.forEach((img, i) => { %>
                     <div class="d-inline-block">
                         <img src="<%= img.thumbnail %>" alt="" class="img-thumbnail">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="<%= img.filename %>"
-                                   id="image-<%= i %>"
-                                   name="deleteImages[]">
-                            <label for="image-<%= i %>">Delete</label>
-                        </div>
+                        <% if (campground.images.length > 1) { %>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="<%= img.filename %>"
+                                       id="image-<%= i %>"
+                                       name="deleteImages[]">
+                                <label for="image-<%= i %>">Delete</label>
+                            </div>
+                        <% } %>
                     </div>
                 <% }) %>
             </div>

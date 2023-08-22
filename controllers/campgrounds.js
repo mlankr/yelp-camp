@@ -5,7 +5,13 @@ const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const ejs = require('ejs');
 const fs = require('fs');
 
+// image upload
+const multer = require('multer');
+const {storage} = require('../cloudinary');
+const upload = multer({storage});
+
 const {cloudinary} = require("../cloudinary");
+const {validateCampgroundDeletion, validateCampgroundLocation} = require("../middleware");
 
 module.exports.index = async (req, res) => {
 	const campgrounds = await Campground.find().limit(5).skip(0);
@@ -69,19 +75,15 @@ module.exports.createCampground = async (req, res) => {
 		const geoData = await geocoder.forwardGeocode({
 			query: req.body.campground.location, limit: 1
 		}).send();
-		if (geoData.body.features && geoData.body.features.length > 0) {
-			const campground = new Campground(req.body.campground);
-			campground.geometry = geoData.body.features[0].geometry;
-			campground.images = req.files.map(f => ({url: f.path, filename: f.filename}));
-			campground.author = req.user._id;
-			await campground.save();
-			req.flash('success', 'Successfully made a new campground!');
-			res.redirect(`/campgrounds/${campground._id}`);
-		} else {
-			req.flash('error', `'${req.body.campground.location}' is invalid location data. Please provide a valid one!`)
-			throw new Error('Invalid Location');
-		}
+		const campground = new Campground(req.body.campground);
+		campground.geometry = geoData.body.features[0].geometry;
+		campground.images = req.files.map(f => ({url: f.path, filename: f.filename}));
+		campground.author = req.user._id;
+		await campground.save();
+		req.flash('success', 'Successfully made a new campground!');
+		res.redirect(`/campgrounds/${campground._id}`);
 	} catch (err) {
+		req.flash('error', "Something went wrong!");
 		req.flash('title', req.body.campground.title);
 		req.flash('price', req.body.campground.price);
 		req.flash('description', req.body.campground.description);
@@ -95,19 +97,25 @@ module.exports.updateCampground = async (req, res) => {
 		const campground = await Campground.findByIdAndUpdate(req.params.id, {...req.body.campground}, {
 			new: true, runValidators: true
 		});
-		const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
-		campground.images.push(...imgs);
-		await campground.save();
-		if (req.body.deleteImages) {
-			for (let filename of req.body.deleteImages) {
-				await cloudinary.uploader.destroy(filename);
-			}
-			await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
+		const imagesToDelete = req.body.deleteImages || [];
+		const allImagesToUpload = req.files.map(f => ({url: f.path, filename: f.filename}));
+		const geoData = await geocoder.forwardGeocode({
+			query: req.body.campground.location, limit: 1
+		}).send();
+
+		for (let filename of imagesToDelete) {
+			await cloudinary.uploader.destroy(filename);
 		}
+		await campground.updateOne({$pull: {images: {filename: {$in: imagesToDelete}}}});
+		campground.images.push(...allImagesToUpload);
+		campground.geometry = geoData.body.features[0].geometry
+		await campground.save();
+
 		req.flash('success', 'Successfully updated campground!');
-		res.redirect(`/campgrounds/${campground._id}`);
+		return res.redirect(`/campgrounds/${campground._id}`);
 	} catch (err) {
-		res.redirect('/campgrounds/' + req.params.id + '/edit');
+		req.flash('error', "Something went wrong!");
+		return res.redirect('/campgrounds/' + req.params.id + '/edit');
 	}
 }
 
