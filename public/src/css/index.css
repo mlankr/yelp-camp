@@ -1,0 +1,3 @@
+/* css files to import for webpack to minify */
+@import './stars.css';
+@import './app.css';

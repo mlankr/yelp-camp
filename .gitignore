@@ -1,6 +1,23 @@
-.idea
-.idea/*
-node_modules
-node_modules/*
-.env
+# Ignore specific files
+.DS_Store
+Thumbs.db
+
+.idea/
+dist/
+build/
+out/
+tmp/
 seeds/db
+node_modules/
+
+# Ignore environment-specific files
+.env
+.env.local
+.env.*.local
+
+# Ignore logs
+*.log
+
+# Ignore compiled files
+*.min.js
+*.min.css
