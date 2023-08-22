@@ -5,13 +5,7 @@ const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const ejs = require('ejs');
 const fs = require('fs');
 
-// image upload
-const multer = require('multer');
-const {storage} = require('../cloudinary');
-const upload = multer({storage});
-
 const {cloudinary} = require("../cloudinary");
-const {validateCampgroundDeletion, validateCampgroundLocation} = require("../middleware");
 
 module.exports.index = async (req, res) => {
 	const campgrounds = await Campground.find().limit(5).skip(0);
@@ -43,6 +37,8 @@ module.exports.showCampground = async (req, res) => {
 		req.flash('error', 'Campground Not Found!');
 		return res.redirect('/campgrounds');
 	}
+	// Clearing the flash message after displaying it
+	req.flash();
 	res.render('campgrounds/show', {
 		campground,
 		reviewText,
@@ -57,6 +53,8 @@ module.exports.renderEditForm = async (req, res) => {
 		req.flash('error', 'Campground Not Found!');
 		return res.redirect('/campgrounds');
 	}
+	// Clearing the flash message after displaying it
+	req.flash();
 	res.render('campgrounds/edit', {campground, pageName: 'Edit Campground'});
 }
 
@@ -80,7 +78,7 @@ module.exports.createCampground = async (req, res) => {
 		campground.images = req.files.map(f => ({url: f.path, filename: f.filename}));
 		campground.author = req.user._id;
 		await campground.save();
-		req.flash('success', 'Successfully made a new campground!');
+		req.flash('success', 'A new campground created successfully!');
 		res.redirect(`/campgrounds/${campground._id}`);
 	} catch (err) {
 		req.flash('error', "Something went wrong!");
@@ -111,7 +109,7 @@ module.exports.updateCampground = async (req, res) => {
 		campground.geometry = geoData.body.features[0].geometry
 		await campground.save();
 
-		req.flash('success', 'Successfully updated campground!');
+		req.flash('success', 'Campground updated successfully!');
 		return res.redirect(`/campgrounds/${campground._id}`);
 	} catch (err) {
 		req.flash('error', "Something went wrong!");
@@ -121,6 +119,6 @@ module.exports.updateCampground = async (req, res) => {
 
 module.exports.deleteCampground = async (req, res) => {
 	await Campground.findByIdAndDelete(req.params.id);
-	req.flash('success', 'Successfully deleted campground!');
+	req.flash('success', 'Campground deleted successfully!');
 	res.redirect(`/campgrounds`);
 }

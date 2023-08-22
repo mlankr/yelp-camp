@@ -75,7 +75,7 @@ module.exports.validateCampgroundDeletion = async (req, res, next) => {
 module.exports.validateCampgroundLocation = async (req, res, next) => {
 	const isCampgroundValid = await validateCampgroundLocation(req.body.campground.location, geocoder);
 	if (isCampgroundValid.length <= 0) {
-		req.flash('error', `'${req.body.campground.location}' is invalid location data. Please provide a valid one! Controller test`)
+		req.flash('error', `'${req.body.campground.location}' is invalid location data. Please provide a valid one!`)
 		req.flash('title', req.body.campground.title);
 		req.flash('price', req.body.campground.price);
 		req.flash('description', req.body.campground.description);

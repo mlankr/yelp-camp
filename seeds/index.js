@@ -116,8 +116,6 @@ function randomNum(num) {
 	return Math.floor(Math.random() * num);
 }
 
-//     https://api.unsplash.com/photos/random?collections=483251&client_id=wqoCzFWFUbgeL565SIhw2zXekJZCaMg81-E37aMbfJ4
-
 const seedDB = async () => {
 	await Campground.deleteMany({});
 	await Review.deleteMany({});
