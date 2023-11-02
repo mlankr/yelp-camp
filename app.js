@@ -18,8 +18,9 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 // database
 const dbUrl = process.env.ENVIRONMENT.toLowerCase() === 'production' ? (process.env.DATABASE_URL || 'mongodb://localhost:27017/yelp-camp') : 'mongodb://localhost:27017/yelp-camp';
-mongoose.connect(dbUrl)
-	.then(() => {
+mongoose.connect(dbUrl, {
+	family: 4,
+	}).then(() => {
 		console.log('Database Connected!!!')
 	})
 	.catch(err => {
