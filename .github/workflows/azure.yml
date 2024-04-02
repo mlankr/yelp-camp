@@ -42,28 +42,28 @@ jobs:
           name: yelpcamp-app
           path: release.zip
 
-  deploy:
-    name: Deploy to Azure Cloud
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from Build job
-        uses: actions/download-artifact@v2
-        with:
-          name: yelpcamp-app
-
-      - name: Unzip artifact for Deployment
-        run: unzip release.zip
-
-      - name: Deploy to Azure Webapp
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'milans-yelpcamp'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_YELPCAMP }}
-          package: .
+#  deploy:
+#    name: Deploy to Azure Cloud
+#    runs-on: ubuntu-latest
+#    needs: build
+#    environment:
+#      name: 'Production'
+#      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+#
+#    steps:
+#      - name: Download artifact from Build job
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: yelpcamp-app
+#
+#      - name: Unzip artifact for Deployment
+#        run: unzip release.zip
+#
+#      - name: Deploy to Azure Webapp
+#        id: deploy-to-webapp
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: 'milans-yelpcamp'
+#          slot-name: 'Production'
+#          publish-profile: ${{ secrets.AzureAppService_PublishProfile_YELPCAMP }}
+#          package: .
