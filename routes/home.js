@@ -1,7 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+// Use the `cors` middleware
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN,
+};
+
+router.get('/', cors(corsOptions), (req, res) => {
     res.render('home', {pageName: 'YelpCamp'});
 });
 

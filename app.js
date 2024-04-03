@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 }
 
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
@@ -29,12 +28,6 @@ mongoose.connect(dbUrl, {
 	});
 
 const app = express();
-
-// Use the `cors` middleware
-const corsOptions = {
-	origin: process.env.CORS_ORIGIN,
-};
-app.use(cors(corsOptions));
 
 // views and view Engine
 app.engine('ejs', ejsMate); // use ejs-locals for all ejs templates
